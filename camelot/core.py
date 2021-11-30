@@ -6,6 +6,7 @@ import zipfile
 import tempfile
 from itertools import chain
 from operator import itemgetter
+import math
 
 import numpy as np
 import pandas as pd
@@ -63,7 +64,7 @@ class TextEdge(object):
         """Updates the text edge's x and bottom y coordinates and sets
         the is_valid attribute.
         """
-        if np.isclose(self.y0, y0, atol=edge_tol):
+        if math.isclose(self.y0, y0, atol=edge_tol):
             self.x = (self.intersections * self.x + x) / float(self.intersections + 1)
             self.y0 = y0
             self.intersections += 1
@@ -99,7 +100,7 @@ class TextEdges(object):
         the specified x coordinate and alignment.
         """
         for i, te in enumerate(self._textedges[align]):
-            if np.isclose(te.x, x_coord, atol=0.5):
+            if math.isclose(te.x, x_coord, atol=0.5):
                 return i
         return None
 
@@ -406,17 +407,17 @@ class Table(object):
             i = [
                 i
                 for i, t in enumerate(self.cols)
-                if np.isclose(v[0], t[0], atol=joint_tol)
+                if math.isclose(v[0], t[0], atol=joint_tol)
             ]
             j = [
                 j
                 for j, t in enumerate(self.rows)
-                if np.isclose(v[3], t[0], atol=joint_tol)
+                if math.isclose(v[3], t[0], atol=joint_tol)
             ]
             k = [
                 k
                 for k, t in enumerate(self.rows)
-                if np.isclose(v[1], t[0], atol=joint_tol)
+                if math.isclose(v[1], t[0], atol=joint_tol)
             ]
             if not j:
                 continue
@@ -466,17 +467,17 @@ class Table(object):
             i = [
                 i
                 for i, t in enumerate(self.rows)
-                if np.isclose(h[1], t[0], atol=joint_tol)
+                if math.isclose(h[1], t[0], atol=joint_tol)
             ]
             j = [
                 j
                 for j, t in enumerate(self.cols)
-                if np.isclose(h[0], t[0], atol=joint_tol)
+                if math.isclose(h[0], t[0], atol=joint_tol)
             ]
             k = [
                 k
                 for k, t in enumerate(self.cols)
-                if np.isclose(h[2], t[0], atol=joint_tol)
+                if math.isclose(h[2], t[0], atol=joint_tol)
             ]
             if not j:
                 continue
